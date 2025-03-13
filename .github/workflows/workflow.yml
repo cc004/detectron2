@@ -11,7 +11,6 @@ jobs:
   windows_cpu_tests:
     runs-on: windows-latest
     # run on PRs, or commits to facebookresearch (not internal)
-    if: ${{ github.repository_owner == 'facebookresearch' || github.event_name == 'pull_request' }}
     strategy:
       fail-fast: false
       matrix:
@@ -44,7 +43,6 @@ jobs:
 
       - name: Install Dependencies
         uses: ./.github/actions/install_windows_dep
-        if: steps.load-cache.outputs.cache-hit != 'true'
         with:
           torch-version: ${{matrix.torch}}
           torchvision-version: ${{matrix.torchvision}}
