@@ -6,11 +6,9 @@ on:
     - cron: "0 0 * * *"  # @daily
   workflow_dispatch:
 
-# Run linter with github actions for quick feedbacks.
 jobs:
   windows_cpu_tests:
     runs-on: windows-latest
-    # run on PRs, or commits to facebookresearch (not internal)
     strategy:
       fail-fast: false
       matrix:
@@ -44,3 +42,13 @@ jobs:
 
       - name: Run Unit Tests
         uses: ./.github/actions/run_unittests_win
+
+      - name: Build Wheel Package
+        run: |
+          python setup.py bdist_wheel
+
+      - name: Upload Wheel to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-wheel
+          path: dist/*.whl
