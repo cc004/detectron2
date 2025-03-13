@@ -4,6 +4,7 @@ on:
   pull_request:
   schedule:
     - cron: "0 0 * * *"  # @daily
+  workflow_dispatch:
 
 # Run linter with github actions for quick feedbacks.
 jobs:
